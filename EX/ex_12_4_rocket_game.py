@@ -1,44 +1,33 @@
-import sys
-import pygame
-from settings import Settings
-from ship import Ship
+'''12-4. Rocket: Make a game that begins with a rocket in the center of the screen. 
+Allow the player to move the rocket up, down, left, or right using the four arrow 
+keys. Make sure the rocket never moves beyond any edge of the screen.'''
 
-class AlienInvasion:
-    '''Overall class to manage game assets and behavior'''
+import sys, pygame
+from ex_12_4_rocket_screensettings import Settings
+from ex_12_4_rocket_ship import Ship
 
+class Rocketgame:
     def __init__(self):
-        '''Initialize the game, and create game resources.'''
         pygame.init()
-        #creating a class Clock from pygame
-        self.clock = pygame.time.Clock()
         self.settings = Settings()
-
+        self.clock = pygame.time.Clock()
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
-        #Setup as Full Screen
-        #self.screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
-        #self.settings.screen_width = self.screen.get_rect().width
-        #self.settings.screen_height = self.screen.get_rect().height
-        pygame.display.set_caption('Alien Invasion')
+        pygame.display.set_caption('Rocket Game Exercise')
+        self.ship = Ship(self)
 
-        self.ship=Ship(self)
-
-        #set the background color
-        self.bg_color = (230,230,230)
-    
-    def run_game(self):
-        '''Start the main loop for the game.'''
+    def run_screen(self):
+        '''Starting the screen'''
         while True:
-            #Watch for keyboard and mouse events.
+            #Make the most recently drawn screen visible
+            #pygame.display.flip()
+            #self.screen.fill(self.settings.bg_color)
+            #self.character.blitme()
             self._check_events()
-            self.ship.update()
-            #Redraw the screen during each pass 
-            #through the loop
             self._update_screen()
-            #tick method takes one argument as frame rate
-            #Pygame will do the best to make the loop run exactly 
-            #60 times per second
+            self.ship.update()
             self.clock.tick(60)
-    
+
+
     def _check_events(self):
         '''Respond to keypresses and mouse events'''
         for event in pygame.event.get():
@@ -57,6 +46,13 @@ class AlienInvasion:
         elif event.key == pygame.K_LEFT:
             #Move the ship to the left
             self.ship.moving_left = True
+        elif event.key == pygame.K_UP:
+            #Move the ship to the UP
+            self.ship.moving_up = True
+        elif event.key == pygame.K_DOWN:
+            #Move the ship to the DOWN
+            self.ship.moving_down = True
+        
         #Press Q to quit
         elif event.key == pygame.K_q:
             sys.exit()
@@ -67,6 +63,10 @@ class AlienInvasion:
             self.ship.moving_right = False
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
+        elif event.key == pygame.K_UP:
+            self.ship.moving_up = False
+        elif event.key == pygame.K_DOWN:
+            self.ship.moving_down = False
     
     def _update_screen(self):
         '''Update images on the screen, and flip to the new screen.'''
@@ -74,8 +74,8 @@ class AlienInvasion:
         self.ship.blitme()
         #Make the most recently drawn screen visible.
         pygame.display.flip()
-        
+
+
 if __name__ == '__main__':
-    #Make a game instance, and run the game.
-    ai = AlienInvasion()
-    ai.run_game()
+    sc = Rocketgame()
+    sc.run_screen()
