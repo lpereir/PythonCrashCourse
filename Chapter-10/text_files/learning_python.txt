@@ -1,0 +1,4 @@
+In Python you can read a text file and load your content to a variable.
+In Python you can split line by line using splitlines() method
+In Python you can replace a word or letter by using replace() method in list
+In Python you can create a Class to identify a kind of data
