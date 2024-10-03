@@ -20,7 +20,6 @@ class RandomWalk:
             x_step = self.get_step()
             y_step = self.get_step()
 
-
             #Reject moves that goes to nowhere.
             if x_step==0 and y_step==0:
                 continue
