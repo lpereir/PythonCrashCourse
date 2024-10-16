@@ -5,18 +5,20 @@ die_1 = Die()
 die_2 = Die()
 
 #Make some rolls, and store results in a list.
-results=[]
-
-for roll_num in range(1000):
-    result = die_1.roll() + die_2.roll()
-    results.append(result)
+results=[die_1.roll() + die_2.roll() for roll_num in range(1000)]
+#print(results)
+#for roll_num in range(1000):
+#    result = die_1.roll() + die_2.roll()
+#    results.append(result)
 #Analyze the results.
-frequencies = []
+
 max_result = die_1.num_sides + die_2.num_sides
 poss_results = range(1,max_result+1)
-for value in poss_results:
-    frequency = results.count(value)
-    frequencies.append(frequency)
+frequencies = [results.count(value) for value in poss_results]
+#print(frequencies)
+#for value in poss_results:
+#    frequency = results.count(value)
+#    frequencies.append(frequency)
 
 #Visualize the results.
 title = 'Results of Rolling Two D6 1,000 Times'
