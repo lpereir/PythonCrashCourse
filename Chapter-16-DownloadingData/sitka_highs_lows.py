@@ -14,22 +14,25 @@ header_row = next(reader)
 #    print(index, column_header)
 
 #Extract high temperatures.
-dates, highs = [], []
+dates, highs, lows = [], [], []
 for row in reader:
     current_date = datetime.strptime(row[2], '%Y-%m-%d')
     high = int(row[4])
+    low = int(row[5])
     dates.append(current_date)
     highs.append(high)
+    lows.append(low)
 
 #print(highs)
 
-#plot the high temperatures.
+#plot the high and low temperatures.
 plt.style.use('seaborn-v0_8')
 fig, ax = plt.subplots()
 ax.plot(dates, highs, color='red')
+ax.plot(dates, lows, color='blue')
 
 #Format plot.
-ax.set_title('Daily High Temperatures, 2021', fontsize=24)
+ax.set_title('Daily High and Low Temperatures, 2021', fontsize=24)
 ax.set_xlabel('', fontsize=16)
 fig.autofmt_xdate()
 ax.set_ylabel('Temperature (F)', fontsize=16)
